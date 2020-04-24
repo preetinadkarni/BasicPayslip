@@ -8,7 +8,7 @@ namespace BasicPayslipKata
 {
     class Program
     {
-        static void Main(string[] args)
+        static void Main()
         {
             Console.WriteLine("Welcome to the payslip generator!\n");
             Console.Write("Please input your name: ");
@@ -23,6 +23,16 @@ namespace BasicPayslipKata
             string startDate = Console.ReadLine();
             Console.Write("Please enter your payment end date: ");
             string endDate = Console.ReadLine();
+
+            BasicPayslip bp = new BasicPayslip();
+            bp.Name = name;
+            bp.Surname = surname;
+            bp.Salary= Convert.ToInt32(salary);
+            bp.SuperRate = Convert.ToInt32(superRate);
+            bp.StartDate = startDate;
+            bp.EndDate = endDate;
+
+            bp.GeneratePayslip();
         }
     }
 }

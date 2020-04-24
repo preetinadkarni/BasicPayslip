@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30011.22
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BasicPayslipKata", "BasicPayslipKata.csproj", "{7CF02030-2E44-42BB-A06B-9B3DFDED423E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7CF02030-2E44-42BB-A06B-9B3DFDED423E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7CF02030-2E44-42BB-A06B-9B3DFDED423E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7CF02030-2E44-42BB-A06B-9B3DFDED423E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7CF02030-2E44-42BB-A06B-9B3DFDED423E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E06706FD-F2A0-4F2C-B4F7-44D0529CBE2C}
+	EndGlobalSection
+EndGlobal

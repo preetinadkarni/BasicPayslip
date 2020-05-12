@@ -27,5 +27,14 @@ namespace BasicPayslipUnitTests
             bp.AnnualSalary = annualSalary;
             return bp.CalculateIncomeTax();
         }
+
+        [TestCase(60050, ExpectedResult = 4082)]
+        public int GivenAnnualSalary_WhenCalculateNetIncome_ThenCorrectNetIncomeCalculated(int annualSalary)
+        {
+            BasicPayslip bp = new BasicPayslip();
+            bp.AnnualSalary = annualSalary;
+            return bp.CalculateNetIncome();
+
+        }
     }
 }

@@ -9,18 +9,15 @@ public class BasicPayslip
 	public string StartDate { get; set; }
 	public string EndDate { get; set; }
 
-	private double grossIncome;
-
-	private int incomeTax;
-
 	public BasicPayslip()
 	{
 	}
 
-	public double CalculateGrossIncome()
+	public int CalculateGrossIncome()
 	{
+		double grossIncome;
 		grossIncome = Math.Floor(Convert.ToDouble(AnnualSalary) / 12);
-		return grossIncome;
+		return (Int32)grossIncome;
 	}
 
 	public int CalculateIncomeTax()
@@ -38,15 +35,24 @@ public class BasicPayslip
 
 		return (Int32)Math.Ceiling(tax);
 	}
+
+	public int CalculateNetIncome()
+	{
+		int netIncome = CalculateGrossIncome() - CalculateIncomeTax();
+		return netIncome;
+	}
 	public void GeneratePayslip()
 	{
 		Console.WriteLine("\nYour payslip has been generated:\n");
 		Console.WriteLine($"Name: {Name} {Surname}");
 		Console.WriteLine($"Pay Period: {StartDate} - {EndDate}");
-		this.CalculateGrossIncome();
+		int grossIncome = CalculateGrossIncome();
 		Console.WriteLine($"Gross Income: {grossIncome}");
-		incomeTax = CalculateIncomeTax();
+		int incomeTax = CalculateIncomeTax();
 		Console.WriteLine($"Income Tax: {incomeTax}");
+		int netIncome = CalculateNetIncome();
+		Console.WriteLine($"Income Tax: {netIncome}");
+		Console.WriteLine("\nThank you for using our payroll system!\n~~~");
 		Console.ReadKey();
 	}
 

@@ -36,5 +36,15 @@ namespace BasicPayslipUnitTests
             return bp.CalculateNetIncome();
 
         }
+
+        [TestCase(60050,9, ExpectedResult = 450)]
+        public int GivenAnnualSalary_WhenCalculateSuper_ThenCorrectSuperCalculated(int annualSalary, int superRate)
+        {
+            BasicPayslip bp = new BasicPayslip();
+            bp.AnnualSalary = annualSalary;
+            bp.SuperRate = superRate;
+            return bp.CalculateSuper();
+
+        }
     }
 }

@@ -41,6 +41,12 @@ public class BasicPayslip
 		int netIncome = CalculateGrossIncome() - CalculateIncomeTax();
 		return netIncome;
 	}
+
+	public int CalculateSuper()
+	{
+		double super = Math.Floor(Convert.ToDouble(CalculateGrossIncome() * SuperRate / 100));
+		return (Int32)super;
+	}
 	public void GeneratePayslip()
 	{
 		Console.WriteLine("\nYour payslip has been generated:\n");
@@ -52,6 +58,8 @@ public class BasicPayslip
 		Console.WriteLine($"Income Tax: {incomeTax}");
 		int netIncome = CalculateNetIncome();
 		Console.WriteLine($"Income Tax: {netIncome}");
+		int super = CalculateSuper();
+		Console.WriteLine($"Super : {super}");
 		Console.WriteLine("\nThank you for using our payroll system!\n~~~");
 		Console.ReadKey();
 	}

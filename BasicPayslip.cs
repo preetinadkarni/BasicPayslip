@@ -24,14 +24,27 @@ public class BasicPayslip
 	{
 		double tax = 0;
 
-		if ( AnnualSalary >= 18201 && AnnualSalary <= 37000 )
-			tax = ( (AnnualSalary - 18200) * 0.19 ) / 12;
-		else if ( AnnualSalary >= 37001 && AnnualSalary <= 87000 )
-			tax = ( 3572 + ((AnnualSalary - 37000) * 0.325 ))/ 12;
-		else if ( AnnualSalary >= 87001 && AnnualSalary <= 180000)
-			tax = ( 19822 + ((AnnualSalary - 87000) * 0.37)) / 12;
-		else if ( AnnualSalary >= 180000)
-			tax = ( 54232 + ((AnnualSalary - 180000) * 0.45)) / 12;
+		const int TaxSlab1Max = 18200;
+		const int TaxSlab2Min = 18201;
+		const int TaxSlab2Max = 37000;
+		const double Slab2Tax = 0.19;
+		const int TaxSlab3Min = 37001;
+		const int TaxSlab3Max = 87000;
+		const double Slab3Tax = 0.325;
+		const int TaxSlab4Min = 87001;
+		const int TaxSlab4Max = 180000;
+		const double Slab4Tax = 0.37;
+		const int TaxSlab5Min = 180001;
+		const double Slab5Tax = 0.45;
+
+		if ( AnnualSalary >= TaxSlab2Min && AnnualSalary <= TaxSlab2Max)
+			tax = ( (AnnualSalary - TaxSlab1Max) *  Slab2Tax) / 12;
+		else if ( AnnualSalary >= TaxSlab3Min && AnnualSalary <= TaxSlab3Max)
+			tax = ( 3572 + ((AnnualSalary - TaxSlab2Max) * Slab3Tax ))/ 12;
+		else if ( AnnualSalary >= TaxSlab4Min && AnnualSalary <= TaxSlab4Max)
+			tax = ( 19822 + ((AnnualSalary - TaxSlab3Max) * Slab4Tax)) / 12;
+		else if ( AnnualSalary >= TaxSlab5Min)
+			tax = ( 54232 + ((AnnualSalary - TaxSlab4Max) * Slab5Tax)) / 12;
 
 		return (Int32)Math.Ceiling(tax);
 	}

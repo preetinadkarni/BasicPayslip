@@ -13,16 +13,18 @@ public class BasicPayslip
 	{
 	}
 
-	public int CalculateGrossIncome()
+	public int CalculateMonthlyGrossIncome()
 	{
-		decimal grossIncome;
-		grossIncome = Math.Floor(Convert.ToDecimal(AnnualSalary) / 12);
-		return (Int32)grossIncome;
+		const int monthsInAYear = 12;
+
+		decimal monthlyGrossIncome;
+		monthlyGrossIncome = Math.Floor(Convert.ToDecimal(AnnualSalary) / monthsInAYear);
+		return (Int32)monthlyGrossIncome;
 	}
 
-	public int CalculateIncomeTax()
+	public int CalculateMonthlyIncomeTax()
 	{
-		decimal tax = 0;
+		decimal monthlyTax = 0;
 
 		const int TaxSlab1Max = 18200;
 		const int TaxSlab2Min = 18201;
@@ -36,29 +38,29 @@ public class BasicPayslip
 		const decimal Slab4Tax = 0.37M;
 		const int TaxSlab5Min = 180001;
 		const decimal Slab5Tax = 0.45M;
-		const int totalMonths = 12;
+		const int monthsInAYear = 12;
 
 		if ( AnnualSalary >= TaxSlab2Min && AnnualSalary <= TaxSlab2Max)
-			tax = ( (AnnualSalary - TaxSlab1Max) *  Slab2Tax) / totalMonths;
+			monthlyTax = ( (AnnualSalary - TaxSlab1Max) *  Slab2Tax) / monthsInAYear;
 		else if ( AnnualSalary >= TaxSlab3Min && AnnualSalary <= TaxSlab3Max)
-			tax = ( 3572 + ((AnnualSalary - TaxSlab2Max) * Slab3Tax ))/ totalMonths;
+			monthlyTax = ( 3572 + ((AnnualSalary - TaxSlab2Max) * Slab3Tax ))/ monthsInAYear;
 		else if ( AnnualSalary >= TaxSlab4Min && AnnualSalary <= TaxSlab4Max)
-			tax = ( 19822 + ((AnnualSalary - TaxSlab3Max) * Slab4Tax)) / totalMonths;
+			monthlyTax = ( 19822 + ((AnnualSalary - TaxSlab3Max) * Slab4Tax)) / monthsInAYear;
 		else if ( AnnualSalary >= TaxSlab5Min)
-			tax = ( 54232 + ((AnnualSalary - TaxSlab4Max) * Slab5Tax)) / totalMonths;
+			monthlyTax = ( 54232 + ((AnnualSalary - TaxSlab4Max) * Slab5Tax)) / monthsInAYear;
 
-		return (Int32)Math.Ceiling(tax);
+		return (Int32)Math.Ceiling(monthlyTax);
 	}
 
-	public int CalculateNetIncome()
+	public int CalculateMonthlyNetIncome()
 	{
-		int netIncome = CalculateGrossIncome() - CalculateIncomeTax();
-		return netIncome;
+		int monthlyNetIncome = CalculateMonthlyGrossIncome() - CalculateMonthlyIncomeTax();
+		return monthlyNetIncome;
 	}
 
 	public int CalculateSuper()
 	{
-		decimal super = Math.Floor(Convert.ToDecimal(CalculateGrossIncome() * SuperRate / 100));
+		decimal super = Math.Floor(Convert.ToDecimal(CalculateMonthlyGrossIncome() * SuperRate / 100));
 		return (Int32)super;
 	}
 	public void GeneratePayslip()
@@ -66,12 +68,12 @@ public class BasicPayslip
 		Console.WriteLine("\nYour payslip has been generated:\n");
 		Console.WriteLine($"Name: {Name} {Surname}");
 		Console.WriteLine($"Pay Period: {StartDate} - {EndDate}");
-		int grossIncome = CalculateGrossIncome();
-		Console.WriteLine($"Gross Income: {grossIncome}");
-		int incomeTax = CalculateIncomeTax();
-		Console.WriteLine($"Income Tax: {incomeTax}");
-		int netIncome = CalculateNetIncome();
-		Console.WriteLine($"Income Tax: {netIncome}");
+		int monthlyGrossIncome = CalculateMonthlyGrossIncome();
+		Console.WriteLine($"Gross Income: {monthlyGrossIncome}");
+		int monthlyIincomeTax = CalculateMonthlyIncomeTax();
+		Console.WriteLine($"Income Tax: {monthlyIincomeTax}");
+		int monthlyNetIncome = CalculateMonthlyNetIncome();
+		Console.WriteLine($"Income Tax: {monthlyNetIncome}");
 		int super = CalculateSuper();
 		Console.WriteLine($"Super : {super}");
 		Console.WriteLine("\nThank you for using our payroll system!\n~~~");

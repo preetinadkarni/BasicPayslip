@@ -11,7 +11,7 @@ namespace BasicPayslipUnitTests
         {
             BasicPayslip bp = new BasicPayslip();
             bp.AnnualSalary = 60050;
-            Assert.AreEqual(bp.CalculateMonthlyGrossIncome(), 5004);
+            Assert.AreEqual(bp.CalculateMonthlyGrossIncome(bp.AnnualSalary,BasicPayslip.MonthsInAYear), 5004);
         }
 
         [TestCase(17000, ExpectedResult = 0)]
@@ -25,7 +25,7 @@ namespace BasicPayslipUnitTests
         {
             BasicPayslip bp = new BasicPayslip();
             bp.AnnualSalary = annualSalary;
-            return bp.CalculateMonthlyIncomeTax();
+            return bp.CalculateMonthlyIncomeTax(bp.AnnualSalary, BasicPayslip.MonthsInAYear);
         }
 
         [TestCase(60050, ExpectedResult = 4082)]
@@ -33,7 +33,7 @@ namespace BasicPayslipUnitTests
         {
             BasicPayslip bp = new BasicPayslip();
             bp.AnnualSalary = annualSalary;
-            return bp.CalculateMonthlyNetIncome();
+            return bp.CalculateMonthlyNetIncome(bp.AnnualSalary, BasicPayslip.MonthsInAYear);
 
         }
 
@@ -43,7 +43,7 @@ namespace BasicPayslipUnitTests
             BasicPayslip bp = new BasicPayslip();
             bp.AnnualSalary = annualSalary;
             bp.SuperRate = superRate;
-            return bp.CalculateSuper();
+            return bp.CalculateSuper(bp.AnnualSalary, BasicPayslip.MonthsInAYear, bp.SuperRate);
 
         }
     }

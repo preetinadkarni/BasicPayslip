@@ -9,20 +9,20 @@ public class BasicPayslip
 	public string StartDate { get; set; }
 	public string EndDate { get; set; }
 
+	public const int MonthsInAYear = 12;
+
 	public BasicPayslip()
 	{
 	}
 
-	public int CalculateMonthlyGrossIncome()
+	public int CalculateMonthlyGrossIncome(int AnnualSalary, int monthsInAYear)
 	{
-		const int monthsInAYear = 12;
-
 		decimal monthlyGrossIncome;
 		monthlyGrossIncome = Math.Floor(Convert.ToDecimal(AnnualSalary) / monthsInAYear);
 		return (Int32)monthlyGrossIncome;
 	}
 
-	public int CalculateMonthlyIncomeTax()
+	public int CalculateMonthlyIncomeTax(int annualSalary, int monthsInAYear)
 	{
 		decimal monthlyTax = 0;
 
@@ -32,35 +32,38 @@ public class BasicPayslip
 		const decimal Slab2Tax = 0.19M;
 		const int TaxSlab3Min = 37001;
 		const int TaxSlab3Max = 87000;
+		const decimal MinSalb3Tax = 3572M;
 		const decimal Slab3Tax = 0.325M;
 		const int TaxSlab4Min = 87001;
 		const int TaxSlab4Max = 180000;
+		const decimal MinSalb4Tax = 19822M;
 		const decimal Slab4Tax = 0.37M;
 		const int TaxSlab5Min = 180001;
+		const decimal MinSalb5Tax = 54232M;
 		const decimal Slab5Tax = 0.45M;
-		const int monthsInAYear = 12;
 
-		if ( AnnualSalary >= TaxSlab2Min && AnnualSalary <= TaxSlab2Max)
-			monthlyTax = ( (AnnualSalary - TaxSlab1Max) *  Slab2Tax) / monthsInAYear;
-		else if ( AnnualSalary >= TaxSlab3Min && AnnualSalary <= TaxSlab3Max)
-			monthlyTax = ( 3572 + ((AnnualSalary - TaxSlab2Max) * Slab3Tax ))/ monthsInAYear;
-		else if ( AnnualSalary >= TaxSlab4Min && AnnualSalary <= TaxSlab4Max)
-			monthlyTax = ( 19822 + ((AnnualSalary - TaxSlab3Max) * Slab4Tax)) / monthsInAYear;
-		else if ( AnnualSalary >= TaxSlab5Min)
-			monthlyTax = ( 54232 + ((AnnualSalary - TaxSlab4Max) * Slab5Tax)) / monthsInAYear;
+
+		if ( annualSalary >= TaxSlab2Min && annualSalary <= TaxSlab2Max)
+			monthlyTax = ( (annualSalary - TaxSlab1Max) *  Slab2Tax) / monthsInAYear;
+		else if ( annualSalary >= TaxSlab3Min && annualSalary <= TaxSlab3Max)
+			monthlyTax = ( MinSalb3Tax + ((annualSalary - TaxSlab2Max) * Slab3Tax ))/ monthsInAYear;
+		else if ( annualSalary >= TaxSlab4Min && annualSalary <= TaxSlab4Max)
+			monthlyTax = ( MinSalb4Tax + ((annualSalary - TaxSlab3Max) * Slab4Tax)) / monthsInAYear;
+		else if ( annualSalary >= TaxSlab5Min)
+			monthlyTax = ( MinSalb5Tax + ((annualSalary - TaxSlab4Max) * Slab5Tax)) / monthsInAYear;
 
 		return (Int32)Math.Ceiling(monthlyTax);
 	}
 
-	public int CalculateMonthlyNetIncome()
+	public int CalculateMonthlyNetIncome(int annualSalary, int monthsInAYear)
 	{
-		int monthlyNetIncome = CalculateMonthlyGrossIncome() - CalculateMonthlyIncomeTax();
+		int monthlyNetIncome = CalculateMonthlyGrossIncome(annualSalary, monthsInAYear) - CalculateMonthlyIncomeTax(annualSalary, monthsInAYear);
 		return monthlyNetIncome;
 	}
 
-	public int CalculateSuper()
+	public int CalculateSuper(int annualSalary, int monthsInAYear, int superRate)
 	{
-		decimal super = Math.Floor(Convert.ToDecimal(CalculateMonthlyGrossIncome() * SuperRate / 100));
+		decimal super = Math.Floor(Convert.ToDecimal(CalculateMonthlyGrossIncome(annualSalary, monthsInAYear) * superRate / 100));
 		return (Int32)super;
 	}
 	public void GeneratePayslip()
@@ -68,13 +71,13 @@ public class BasicPayslip
 		Console.WriteLine("\nYour payslip has been generated:\n");
 		Console.WriteLine($"Name: {Name} {Surname}");
 		Console.WriteLine($"Pay Period: {StartDate} - {EndDate}");
-		int monthlyGrossIncome = CalculateMonthlyGrossIncome();
+		int monthlyGrossIncome = CalculateMonthlyGrossIncome(AnnualSalary, MonthsInAYear);
 		Console.WriteLine($"Gross Income: {monthlyGrossIncome}");
-		int monthlyIincomeTax = CalculateMonthlyIncomeTax();
+		int monthlyIincomeTax = CalculateMonthlyIncomeTax(AnnualSalary, MonthsInAYear);
 		Console.WriteLine($"Income Tax: {monthlyIincomeTax}");
-		int monthlyNetIncome = CalculateMonthlyNetIncome();
+		int monthlyNetIncome = CalculateMonthlyNetIncome(AnnualSalary, MonthsInAYear);
 		Console.WriteLine($"Income Tax: {monthlyNetIncome}");
-		int super = CalculateSuper();
+		int super = CalculateSuper(AnnualSalary, MonthsInAYear, SuperRate);
 		Console.WriteLine($"Super : {super}");
 		Console.WriteLine("\nThank you for using our payroll system!\n~~~");
 		Console.ReadKey();

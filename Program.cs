@@ -44,7 +44,8 @@ namespace BasicPayslipKata
                 string ansal = Console.ReadLine();
                 int annualSalary;
                 bool success = Int32.TryParse(ansal, out annualSalary);
-                if (success && (annualSalary > 0))
+                const int positiveAnnualSalary = 0;
+                if (success && (annualSalary > positiveAnnualSalary))
                 {
                     isValidAnnualSalary = true;
                     bp.AnnualSalary = annualSalary;
@@ -102,7 +103,9 @@ namespace BasicPayslipKata
 
         public static bool CheckSuperRateIsValid(int superRate)
         {
-            return (superRate >= 0 && superRate <= 50);
+            const int minSuperRate = 0;
+            const int maxSuperRate = 50;
+            return (superRate >= minSuperRate && superRate <= maxSuperRate);
         }
     }
 }

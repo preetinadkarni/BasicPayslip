@@ -7,13 +7,19 @@ using System.Threading.Tasks;
 namespace BasicPayslipKata
 {
     public class Program
-    {
+    {     
         public static void Main()
+        {
+            BasicPayslip bp = new BasicPayslip();
+            InputPayslipDetails(bp);
+            bp.GeneratePayslip();
+
+        }
+        static void InputPayslipDetails(BasicPayslip bp)
         {
             Console.WriteLine("~~~");
             Console.WriteLine("Welcome to the payslip generator!\n");
             bool isValidName = false;
-            BasicPayslip bp = new BasicPayslip();
             while (!isValidName)
             {
                 Console.Write("Please input your name: ");
@@ -57,7 +63,7 @@ namespace BasicPayslipKata
             }
 
             bool isValidSuperRate = false;
-            while(!isValidSuperRate)
+            while (!isValidSuperRate)
             {
                 Console.Write("Please enter your super rate: ");
                 string sr = Console.ReadLine();
@@ -96,11 +102,7 @@ namespace BasicPayslipKata
                     bp.EndDate = endDate;
                 }
             }
-
-            bp.GeneratePayslip();
-
         }
-
         public static bool CheckSuperRateIsValid(int superRate)
         {
             const int minSuperRate = 0;
